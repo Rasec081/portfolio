@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cesar Gamboa | CS Student &amp; Developer</title>
+    <meta name="description" content="Cesar Gamboa Naranjo - Computer Science Student. Full-stack development, systems programming, cybersecurity, and tutoring in statistics, robotics, and SQL.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #0b0d11;
+            --bg-alt: #0f1117;
+            --surface: #151820;
+            --surface-hover: #1a1e28;
+            --border: #222630;
+            --border-hover: #3d5afe;
+            --text: #d8dae0;
+            --text-dim: #7c8290;
+            --text-muted: #505664;
+            --accent: #6C63FF;
+            --accent-dim: rgba(108, 99, 255, 0.1);
+            --green: #34d399;
+            --green-dim: rgba(52, 211, 153, 0.08);
+            --amber: #fbbf24;
+            --amber-dim: rgba(251, 191, 36, 0.08);
+            --blue: #60a5fa;
+            --blue-dim: rgba(96, 165, 250, 0.08);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        /* NAV */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            padding: 0 2rem; height: 56px;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(11, 13, 17, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-brand { font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 0.9rem; color: var(--accent); }
+        .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+        .nav-links a { font-size: 0.85rem; font-weight: 500; color: var(--text-dim); transition: color 0.2s; }
+        .nav-links a:hover { color: var(--text); }
+        .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+        .nav-toggle span { display: block; width: 20px; height: 2px; background: var(--text-dim); margin: 4px 0; transition: 0.3s; }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center;
+            padding: 6rem 2rem 4rem;
+        }
+        .hero-inner { max-width: 720px; margin: 0 auto; width: 100%; }
+        .hero-tag {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
+            color: var(--accent); margin-bottom: 1rem; letter-spacing: 0.05em;
+        }
+        .hero-inner h1 { font-size: 2.8rem; font-weight: 700; line-height: 1.15; letter-spacing: -0.03em; margin-bottom: 1.2rem; }
+        .hero-inner h1 .hl { color: var(--accent); }
+        .hero-desc { color: var(--text-dim); font-size: 1.05rem; max-width: 560px; margin-bottom: 2rem; line-height: 1.7; }
+        .hero-links { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+        .btn {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 0.6rem 1.2rem; border-radius: 6px;
+            font-size: 0.85rem; font-weight: 500; font-family: inherit;
+            transition: all 0.2s; border: 1px solid transparent; cursor: pointer;
+        }
+        .btn-fill { background: var(--accent); color: #fff; border-color: var(--accent); }
+        .btn-fill:hover { background: #7c75ff; transform: translateY(-1px); }
+        .btn-ghost { background: transparent; color: var(--text); border-color: var(--border); }
+        .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+        .btn svg { width: 16px; height: 16px; }
+
+        /* SECTIONS */
+        .section { padding: 5rem 2rem; }
+        .section-alt { background: var(--bg-alt); }
+        .section-inner { max-width: 960px; margin: 0 auto; }
+        .section-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.5rem; }
+        .section-title { font-size: 1.8rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+        .section-desc { color: var(--text-dim); max-width: 520px; margin-bottom: 2.5rem; font-size: 0.95rem; }
+
+        /* PROJECTS */
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+        .pcard {
+            background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+            padding: 1.5rem; display: flex; flex-direction: column; transition: all 0.25s;
+        }
+        .pcard:hover { border-color: var(--border-hover); background: var(--surface-hover); transform: translateY(-2px); }
+        .pcard-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; }
+        .pcard-level {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 500;
+            padding: 3px 8px; border-radius: 4px; display: inline-block;
+        }
+        .lvl-prod { background: var(--blue-dim); color: var(--blue); }
+        .lvl-adv { background: var(--green-dim); color: var(--green); }
+        .lvl-acad { background: var(--amber-dim); color: var(--amber); }
+        .pcard-links { display: flex; gap: 0.6rem; }
+        .pcard-links a { color: var(--text-muted); font-size: 0.78rem; font-family: 'JetBrains Mono', monospace; transition: color 0.2s; }
+        .pcard-links a:hover { color: var(--accent); }
+        .pcard h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .pcard p { color: var(--text-dim); font-size: 0.87rem; flex: 1; margin-bottom: 1rem; line-height: 1.6; }
+        .pcard-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+        .tag {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+            padding: 3px 8px; border-radius: 4px;
+            background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(108,99,255,0.15);
+        }
+
+        /* SKILLS */
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+        .scard {
+            background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+            padding: 1.25rem; transition: border-color 0.2s;
+        }
+        .scard:hover { border-color: var(--border-hover); }
+        .scard h3 {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
+            color: var(--accent); margin-bottom: 0.75rem; font-weight: 500;
+        }
+        .scard-items { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+        .skill-tag {
+            font-size: 0.82rem; padding: 0.35rem 0.7rem; border-radius: 5px;
+            background: var(--bg); color: var(--text-dim); border: 1px solid var(--border);
+            transition: all 0.2s;
+        }
+        .skill-tag:hover { color: var(--text); border-color: var(--accent); }
+
+        /* TIMELINE */
+        .timeline { position: relative; padding-left: 1.5rem; }
+        .timeline::before { content: ''; position: absolute; left: 0; top: 4px; bottom: 4px; width: 1px; background: var(--border); }
+        .tl-item { position: relative; margin-bottom: 2rem; padding-left: 1.5rem; }
+        .tl-item::before {
+            content: ''; position: absolute; left: -1.5rem; top: 7px;
+            width: 7px; height: 7px; border-radius: 50%;
+            background: var(--accent); transform: translateX(-3px);
+        }
+        .tl-date { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--accent); margin-bottom: 0.2rem; }
+        .tl-item h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.15rem; }
+        .tl-item h4 { font-size: 0.85rem; color: var(--text-muted); font-weight: 400; margin-bottom: 0.4rem; }
+        .tl-item p { color: var(--text-dim); font-size: 0.87rem; }
+
+        /* CERTS */
+        .certs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+        .cert {
+            background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+            padding: 1.5rem; transition: all 0.25s;
+        }
+        .cert:hover { border-color: var(--border-hover); }
+        .cert-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 0.75rem; }
+        .cert-icon {
+            width: 40px; height: 40px; border-radius: 8px;
+            background: var(--accent-dim); display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+        .cert-icon svg { width: 20px; height: 20px; stroke: var(--accent); fill: none; stroke-width: 1.5; }
+        .cert h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.3rem; }
+        .cert p { color: var(--text-dim); font-size: 0.82rem; margin-bottom: 0.5rem; }
+        .cert-year { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--accent); }
+        .cert-view {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
+            color: var(--text-muted); cursor: pointer; transition: color 0.2s;
+            background: none; border: 1px solid var(--border); border-radius: 6px;
+            padding: 0.4rem 0.8rem; margin-top: 0.5rem;
+        }
+        .cert-view:hover { color: var(--accent); border-color: var(--accent); }
+        .cert-view svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+        /* LIGHTBOX */
+        .lightbox {
+            display: none; position: fixed; inset: 0; z-index: 999;
+            background: rgba(0,0,0,0.9); backdrop-filter: blur(8px);
+            align-items: center; justify-content: center; cursor: zoom-out;
+        }
+        .lightbox.active { display: flex; }
+        .lightbox img {
+            max-width: 90vw; max-height: 90vh; border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5); object-fit: contain;
+        }
+        .lightbox-close {
+            position: absolute; top: 1.5rem; right: 1.5rem;
+            background: none; border: none; color: var(--text-dim);
+            font-size: 1.5rem; cursor: pointer; width: 40px; height: 40px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; transition: all 0.2s;
+        }
+        .lightbox-close:hover { color: #fff; background: rgba(255,255,255,0.1); }
+
+
+
+
+        /* CONTACT */
+        .contact-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+        .contact-card {
+            display: flex; align-items: center; gap: 0.75rem;
+            background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+            padding: 1rem; transition: all 0.2s;
+        }
+        .contact-card:hover { border-color: var(--border-hover); }
+        .contact-card .icon {
+            width: 40px; height: 40px; border-radius: 8px;
+            background: var(--accent-dim); display: flex; align-items: center;
+            justify-content: center; flex-shrink: 0;
+        }
+        .contact-card .icon svg { width: 18px; height: 18px; stroke: var(--accent); fill: none; stroke-width: 2; }
+        .contact-card .lbl { font-size: 0.72rem; color: var(--text-muted); }
+        .contact-card .val { font-size: 0.87rem; font-weight: 500; }
+
+        /* FOOTER */
+        footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.82rem; }
+
+        /* ANIMATIONS */
+        .fade { opacity: 0; transform: translateY(20px); transition: opacity 0.5s, transform 0.5s; }
+        .fade.show { opacity: 1; transform: none; }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .nav-links.open {
+                display: flex; flex-direction: column; position: absolute;
+                top: 56px; left: 0; right: 0; background: rgba(11,13,17,0.96);
+                padding: 1rem 2rem; border-bottom: 1px solid var(--border); gap: 0.8rem;
+            }
+            .nav-toggle { display: block; }
+            .hero-inner h1 { font-size: 2rem; }
+            .projects-grid, .skills-grid, .certs-grid, .contact-grid { grid-template-columns: 1fr; }
+            .section { padding: 3rem 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="#" class="nav-brand">cesar.gamboa</a>
+    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#certs">Certifications</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-inner">
+        <p class="hero-tag">Computer Science Student</p>
+        <h1>Cesar <span class="hl">Gamboa</span></h1>
+        <p class="hero-desc">
+            Full-stack development, systems programming across Rust, C++, Haskell and Prolog, and a cybersecurity background from CCNA to CyberOps. I also tutor Statistics, Robotics, and SQL. Building software that works, scales, and ships.
+        </p>
+        <div class="hero-links">
+            <a href="#projects" class="btn btn-fill">View Projects</a>
+            <a href="https://github.com/Rasec081" target="_blank" class="btn btn-ghost">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/cesar-gamboa-naranjo/" target="_blank" class="btn btn-ghost">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                LinkedIn
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="section section-alt" id="projects">
+    <div class="section-inner">
+        <p class="section-tag fade">Projects</p>
+        <h2 class="section-title fade">Selected Work</h2>
+        <p class="section-desc fade">Full-stack apps, hackathon builds, a personal game project, and a team collaboration.</p>
+
+        <div class="projects-grid">
+
+            <div class="pcard fade">
+                <div class="pcard-top">
+                    <span class="pcard-level lvl-adv">Full-Stack</span>
+                    <div class="pcard-links">
+                        <a href="https://github.com/Rasec081/TravelSplit" target="_blank">Code</a>
+                    </div>
+                </div>
+                <h3>TravelSplit</h3>
+                <p>Web app for splitting shared trip expenses. Groups, participants, and expenses with automatic balance calculation, multiple split methods (equal, shares, percentage, custom), and screen-reader-friendly accessibility features.</p>
+                <div class="pcard-tags">
+                    <span class="tag">React</span><span class="tag">FastAPI</span><span class="tag">PostgreSQL</span><span class="tag">Accessibility</span>
+                </div>
+            </div>
+
+            <div class="pcard fade">
+                <div class="pcard-top">
+                    <span class="pcard-level lvl-adv">Hackathon</span>
+                    <div class="pcard-links">
+                        <a href="https://github.com/Rasec081/Restaurante-Hackaton" target="_blank">Code</a>
+                    </div>
+                </div>
+                <h3>Restaurant Food Cost Audit</h3>
+                <p>Dashboard built at a hackathon to help restaurants track ingredient costs, recipe pricing, and margins. Weekly cost audits, price-variation alerts, and configurable alert thresholds.</p>
+                <div class="pcard-tags">
+                    <span class="tag">React</span><span class="tag">Vite</span><span class="tag">Tailwind</span><span class="tag">React Router</span>
+                </div>
+            </div>
+
+            <div class="pcard fade">
+                <div class="pcard-top">
+                    <span class="pcard-level lvl-acad">Game</span>
+                    <div class="pcard-links">
+                        <a href="https://github.com/Rasec081/Zombi-Escape" target="_blank">Code</a>
+                    </div>
+                </div>
+                <h3>Zombi Escape</h3>
+                <p>Multiplayer cooperative game built in Java with Sockets and object-oriented programming. Players work together to escape zombies in a city grid, advancing through levels. Everyone must survive and reach the exit &mdash; if one player dies, the whole team loses.</p>
+                <div class="pcard-tags">
+                    <span class="tag">Java</span><span class="tag">Sockets</span><span class="tag">OOP</span><span class="tag">Multiplayer</span>
+                </div>
+            </div>
+
+            <div class="pcard fade">
+                <div class="pcard-top">
+                    <span class="pcard-level lvl-prod">Collaboration</span>
+                    <div class="pcard-links">
+                        <a href="https://github.com/Dan1el-M/Restaurante-DB-I-Proyecto" target="_blank">Code</a>
+                    </div>
+                </div>
+                <h3>Restaurant Management API</h3>
+                <p>Team project (not in my own repo, but I contributed to it): a REST API for restaurant reservations, menus, and users. FastAPI with Keycloak auth, PostgreSQL/sharded MongoDB, Redis, Elasticsearch, and Nginx, deployable via Docker Compose and Kubernetes.</p>
+                <div class="pcard-tags">
+                    <span class="tag">FastAPI</span><span class="tag">Docker / K8s</span><span class="tag">Keycloak</span><span class="tag">MongoDB</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- SKILLS -->
+<section class="section" id="skills">
+    <div class="section-inner">
+        <p class="section-tag fade">Technical Skills</p>
+        <h2 class="section-title fade">Stack</h2>
+        <p class="section-desc fade">From user interfaces to low-level systems.</p>
+        <div class="skills-grid">
+            <div class="scard fade">
+                <h3>Frontend</h3>
+                <div class="scard-items">
+                    <span class="skill-tag">React</span><span class="skill-tag">TypeScript</span><span class="skill-tag">JavaScript ES6+</span><span class="skill-tag">HTML5</span><span class="skill-tag">CSS3</span><span class="skill-tag">Responsive Design</span><span class="skill-tag">Flexbox / Grid</span>
+                </div>
+            </div>
+            <div class="scard fade">
+                <h3>Backend</h3>
+                <div class="scard-items">
+                    <span class="skill-tag">Node.js</span><span class="skill-tag">Express</span><span class="skill-tag">PostgreSQL</span><span class="skill-tag">MongoDB</span><span class="skill-tag">SQL</span><span class="skill-tag">REST APIs</span>
+                </div>
+            </div>
+            <div class="scard fade">
+                <h3>Systems</h3>
+                <div class="scard-items">
+                    <span class="skill-tag">Python</span><span class="skill-tag">Java</span><span class="skill-tag">Haskell</span><span class="skill-tag">Prolog</span><span class="skill-tag">Ruby</span><span class="skill-tag">Rust</span><span class="skill-tag">TCP/HTTP</span><span class="skill-tag">Assembly</span><span class="skill-tag">C++</span>
+                </div>
+            </div>
+            <div class="scard fade">
+                <h3>DevOps &amp; Tools</h3>
+                <div class="scard-items">
+                    <span class="skill-tag">Git / GitHub</span><span class="skill-tag">Vercel</span><span class="skill-tag">Docker</span><span class="skill-tag">Linux</span><span class="skill-tag">Bash</span><span class="skill-tag">CI/CD</span><span class="skill-tag">npm</span>
+                </div>
+            </div>
+            <div class="scard fade">
+                <h3>Tutoring</h3>
+                <div class="scard-items">
+                    <span class="skill-tag">Statistics</span><span class="skill-tag">Robotics</span><span class="skill-tag">SQL</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="section section-alt" id="experience">
+    <div class="section-inner">
+        <p class="section-tag fade">Experience</p>
+        <h2 class="section-title fade">Professional Path</h2>
+        <p class="section-desc fade">Development, teaching, and student leadership.</p>
+        <div class="timeline">
+            <div class="tl-item fade">
+                <p class="tl-date">2024 &ndash; 2028 (Expected)</p>
+                <h3>B.Sc. Computer Science</h3>
+                <p>Undergraduate studies in Computer Science, covering systems programming, databases, and software development.</p>
+            </div>
+            <div class="tl-item fade">
+                <p class="tl-date">2026 &ndash; Present</p>
+                <h3>Individual Tutor &mdash; Statistics</h3>
+                <h4>School of Computing</h4>
+                <p>One-on-one tutoring in Statistics for Computer Science students.</p>
+            </div>
+            <div class="tl-item fade">
+                <p class="tl-date">2025 &ndash; Present</p>
+                <h3>Special Assistant &mdash; Technical Support</h3>
+                <h4>School of Computing</h4>
+                <p>Technical support for students and faculty at the School of Computing.</p>
+            </div>
+            <div class="tl-item fade">
+                <p class="tl-date">2025 &ndash; Present</p>
+                <h3>Operations Assistant</h3>
+                <h4>School of Computing</h4>
+                <p>Front-line operational support for students and faculty at the School of Computing.</p>
+            </div>
+            <div class="tl-item fade">
+                <p class="tl-date">Oct 2023 &ndash; Dec 2023</p>
+                <h3>Internship</h3>
+                <h4>Universidad de Costa Rica (UCR)</h4>
+                <p>Internship at the Universidad de Costa Rica.</p>
+            </div>
+            <div class="tl-item fade">
+                <p class="tl-date">2023</p>
+                <h3>CyberOps</h3>
+                <h4>Cisco Networking Academy</h4>
+                <p>Security operations center fundamentals: threat detection, monitoring, and incident response.</p>
+            </div>
+            <div class="tl-item fade">
+                <p class="tl-date">2022</p>
+                <h3>CCNA 1 &amp; 2</h3>
+                <h4>Cisco Networking Academy</h4>
+                <p>Networking fundamentals: routing, switching, and network addressing.</p>
+            </div>
+            <div class="tl-item fade">
+                <p class="tl-date">2022</p>
+                <h3>Linux Essentials</h3>
+                <h4>Cisco Networking Academy</h4>
+                <p>Linux fundamentals: command line, file systems, and system administration basics.</p>
+            </div>
+            <div class="tl-item fade">
+                <p class="tl-date">2021 &ndash; 2023</p>
+                <h3>Technical Diploma &mdash; Cybersecurity</h3>
+                <p>Technical high school diploma with a focus on cybersecurity.</p>
+            </div>
+            <div class="tl-item fade">
+                <p class="tl-date">2021</p>
+                <h3>Introduction to IoT</h3>
+                <h4>Cisco Networking Academy</h4>
+                <p>Fundamentals of the Internet of Things: connected devices, sensors, and data.</p>
+            </div>
+            <div class="tl-item fade">
+                <p class="tl-date">2021</p>
+                <h3>Cybersecurity Essentials</h3>
+                <h4>Cisco Networking Academy</h4>
+                <p>Core cybersecurity concepts: threats, vulnerabilities, and defense fundamentals.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CERTS -->
+<section class="section" id="certs">
+    <div class="section-inner">
+        <p class="section-tag fade">Certifications</p>
+        <h2 class="section-title fade">Credentials</h2>
+        <p class="section-desc fade">Professional certifications and technical diplomas.</p>
+        <div class="certs-grid">
+            <div class="cert fade">
+                <div class="cert-header">
+                    <div class="cert-icon"><svg viewBox="0 0 24 24"><path d="M12 15l-2 5l2-1l2 1l-2-5z"/><circle cx="12" cy="9" r="6"/><path d="M12 3a6 6 0 00-6 6c0 3.31 2.69 6 6 6s6-2.69 6-6a6 6 0 00-6-6z" fill="none"/></svg></div>
+                    <span class="cert-year">2022</span>
+                </div>
+                <h3>Linux Essentials</h3>
+                <p>Cisco Networking Academy &mdash; Linux fundamentals and system administration basics.</p>
+            </div>
+            <div class="cert fade">
+                <div class="cert-header">
+                    <div class="cert-icon"><svg viewBox="0 0 24 24"><path d="M12 15l-2 5l2-1l2 1l-2-5z"/><circle cx="12" cy="9" r="6"/><path d="M12 3a6 6 0 00-6 6c0 3.31 2.69 6 6 6s6-2.69 6-6a6 6 0 00-6-6z" fill="none"/></svg></div>
+                    <span class="cert-year">2022</span>
+                </div>
+                <h3>CCNA 1 &amp; 2</h3>
+                <p>Cisco Networking Academy &mdash; Networking fundamentals, routing, and switching.</p>
+            </div>
+            <div class="cert fade">
+                <div class="cert-header">
+                    <div class="cert-icon"><svg viewBox="0 0 24 24"><path d="M12 15l-2 5l2-1l2 1l-2-5z"/><circle cx="12" cy="9" r="6"/><path d="M12 3a6 6 0 00-6 6c0 3.31 2.69 6 6 6s6-2.69 6-6a6 6 0 00-6-6z" fill="none"/></svg></div>
+                    <span class="cert-year">2023</span>
+                </div>
+                <h3>CyberOps</h3>
+                <p>Cisco Networking Academy &mdash; Security operations, threat detection, and incident response.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section section-alt" id="contact">
+    <div class="section-inner">
+        <p class="section-tag fade">Contact</p>
+        <h2 class="section-title fade">Get in Touch</h2>
+        <p class="section-desc fade">Open to internship opportunities, freelance projects, and collaborations.</p>
+        <div class="contact-grid">
+            <a href="mailto:gamboacesar379@gmail.com" class="contact-card fade">
+                <div class="icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 6l-10 7L2 6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div><p class="lbl">Email</p><p class="val">gamboacesar379@gmail.com</p></div>
+            </a>
+            <a href="https://www.linkedin.com/in/cesar-gamboa-naranjo/" target="_blank" class="contact-card fade">
+                <div class="icon"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z" stroke-linecap="round" stroke-linejoin="round"/><rect x="2" y="9" width="4" height="12" stroke-linecap="round" stroke-linejoin="round"/><circle cx="4" cy="4" r="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div><p class="lbl">LinkedIn</p><p class="val">Cesar Gamboa</p></div>
+            </a>
+            <a href="https://github.com/Rasec081" target="_blank" class="contact-card fade">
+                <div class="icon"><svg viewBox="0 0 24 24" fill="var(--accent)" stroke="none"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></div>
+                <div><p class="lbl">GitHub</p><p class="val">Rasec081</p></div>
+            </a>
+            <a href="tel:+50685463361" class="contact-card fade">
+                <div class="icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div><p class="lbl">Phone</p><p class="val">+506 8546-3361</p></div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <button class="lightbox-close" aria-label="Close">&times;</button>
+    <img id="lightbox-img" src="" alt="Certificate">
+</div>
+
+<footer>
+    <p>&copy; 2026 Cesar Gamboa Naranjo</p>
+</footer>
+
+<script>
+const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade').forEach(el => obs.observe(el));
+document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => document.querySelector('.nav-links').classList.remove('open'));
+});
+
+// Lightbox
+function openLightbox(src) {
+    const lb = document.getElementById('lightbox');
+    document.getElementById('lightbox-img').src = src;
+    lb.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+}
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+</script>
+
+</body>
+</html>
